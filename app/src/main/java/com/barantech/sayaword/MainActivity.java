@@ -13,6 +13,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.barantech.sayaword.web.Constant;
+import com.barantech.sayaword.web.ErrorListener;
+import com.barantech.sayaword.web.GsonRequest;
+import com.barantech.sayaword.web.model.WordResponse;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -31,6 +40,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     TextView mTvName;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
+    private EditText mEtWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         // especially, if you're using Facebook UI elements.
 
         setContentView(R.layout.activity_main);
-        EditText mEtWord = (EditText) findViewById(R.id.et_word);
+        mEtWord = (EditText) findViewById(R.id.et_word);
         final View mBtnSend = findViewById(R.id.btn_sendword);
         mTvName = (TextView) findViewById(R.id.tv_name);
         // TODO: 11/15/15 move to proper place
@@ -162,7 +173,42 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             Log.e("Error MY KEY HASH:", e.toString());
 
         }
+        mBtnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendWord();
+            }
+        });
 
+    }
+
+    private void sendWord(){
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        HashMap<String, String> param= new HashMap<>(2);
+        param.put("word",mEtWord.getText().toString());
+        param.put("userId","102");
+
+// Request a string response from the provided URL.
+        GsonRequest<WordResponse> stringRequest = new GsonRequest<>(Request.Method.POST,
+                Constant.WORDS, WordResponse.class, null, param,
+                new Response.Listener<WordResponse>() {
+                    @Override
+                    public void onResponse(WordResponse response) {
+                        // Display the first 500 characters of the response string.
+                        Log.e("response.owner", response.owner+"");
+                        Log.e("response.status", response.status+"");
+                        Log.e("response.subscribers", response.subscribers+"");
+
+                    }
+                }, new ErrorListener(new ErrorListener.ErrorHandler() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error", error.toString());
+            }
+        }));
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     @Override
