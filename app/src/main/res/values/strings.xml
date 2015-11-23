@@ -2,4 +2,5 @@
     <string name="app_name">Say A Word</string>
     <string name="send">Send</string>
     <string name="say_a_word">Say a word</string>
+    <string name="facebook_app_id">469332839942299</string>
 </resources>

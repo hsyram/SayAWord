@@ -1,15 +1,26 @@
 package com.barantech.sayaword;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -18,15 +29,24 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
     private int RC_SIGN_IN = 84;
     TextView mTvName;
+    private CallbackManager callbackManager;
+    private ProfileTracker profileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        // Initialize the SDK before executing any other operations,
+        // especially, if you're using Facebook UI elements.
+
         setContentView(R.layout.activity_main);
         EditText mEtWord = (EditText) findViewById(R.id.et_word);
         final View mBtnSend = findViewById(R.id.btn_sendword);
@@ -51,15 +71,58 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         // may be displayed when only basic profile is requested. Try adding the
         // Scopes.PLUS_LOGIN scope to the GoogleSignInOptions to see the
         // difference.
-        SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
-        signInButton.setScopes(gso.getScopeArray());
-        signInButton.setOnClickListener(new View.OnClickListener() {
+        SignInButton googleSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        googleSignInButton.setSize(SignInButton.SIZE_STANDARD);
+        googleSignInButton.setScopes(gso.getScopeArray());
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
+
+
+        LoginButton facebookLoginButton = (LoginButton) findViewById(R.id.login_button);
+        facebookLoginButton.setReadPermissions("user_friends");
+        // If using in a fragment
+//        facebookLoginButton.setFragment(this);
+        // Other app specific specialization
+
+        // Callback registration
+        callbackManager = CallbackManager.Factory.create();
+        facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Log.d("fb.registerCallback", "onSuccess: "+loginResult.toString());
+
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.d("fb.registerCallback", "onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.d("fb.registerCallback", "onError: "+exception.toString());
+            }
+        });
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(
+                    Profile oldProfile,
+                    Profile currentProfile) {
+                // App code
+                Log.d("fb:", "onCurrentProfileChanged");
+                if(currentProfile!=null)
+                    mTvName.setText(currentProfile.getName()+" "+currentProfile.getLastName());
+
+            }
+        };
 
         //END of TODO
 
@@ -83,11 +146,28 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
+        try {
+            PackageInfo info =     getPackageManager().getPackageInfo("com.barantech.sayaword",     PackageManager.GET_SIGNATURES);
+            for (android.content.pm.Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String sign=Base64.encodeToString(md.digest(), Base64.DEFAULT);
+                Log.e("MY KEY HASH:", sign);
+                //  Toast.makeText(getApplicationContext(),sign,     Toast.LENGTH_LONG).show();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("Error MY KEY HASH:", e.toString());
+
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("Error MY KEY HASH:", e.toString());
+
+        }
+
     }
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.e("onConnectionFailed",connectionResult.getErrorMessage());
+        Log.e("onConnectionFailed", connectionResult.getErrorMessage());
     }
 
     private void signIn() {
@@ -104,6 +184,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
         }
+        else
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
@@ -121,5 +204,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             // Signed out, show unauthenticated UI.
 //            updateUI(false);
         }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        profileTracker.stopTracking();
     }
 }

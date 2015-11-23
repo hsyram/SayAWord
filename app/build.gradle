@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.barantech.sayaword"
-        minSdkVersion 10
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-auth:8.3.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
 }
