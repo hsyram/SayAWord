@@ -12,11 +12,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.barantech.sayaword.MainActivity">
+
     <TextView
+        android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_name"
-        android:text="Your name is: "/>
+        android:text="Your name is: " />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
@@ -28,8 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/il_word"
@@ -44,6 +45,14 @@
             android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:hint="id"
+        android:singleLine="true" />
+
     <Button
         android:id="@+id/btn_sendword"
         android:layout_width="wrap_content"
@@ -52,4 +61,9 @@
         android:minWidth="@dimen/button_min_width"
         android:text="@string/send"
         android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

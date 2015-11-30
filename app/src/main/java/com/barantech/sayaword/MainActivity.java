@@ -3,12 +3,11 @@ package com.barantech.sayaword;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,12 +15,11 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.barantech.sayaword.util.Log;
 import com.barantech.sayaword.web.Constant;
 import com.barantech.sayaword.web.ErrorListener;
-import com.barantech.sayaword.web.GsonRequest;
-import com.barantech.sayaword.web.model.WordResponse;
+import com.barantech.sayaword.web.StringRequestWord;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -38,6 +36,9 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -46,10 +47,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     private GoogleApiClient mGoogleApiClient;
     private int RC_SIGN_IN = 84;
+    TextView mTvResult;
     TextView mTvName;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
     private EditText mEtWord;
+    private EditText mEtID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         setContentView(R.layout.activity_main);
         mEtWord = (EditText) findViewById(R.id.et_word);
+        mEtID = (EditText) findViewById(R.id.et_id);
         final View mBtnSend = findViewById(R.id.btn_sendword);
         mTvName = (TextView) findViewById(R.id.tv_name);
+        mTvResult = (TextView) findViewById(R.id.tv_result);
         // TODO: 11/15/15 move to proper place
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -183,32 +188,51 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void sendWord(){
+        mTvResult.setVisibility(View.INVISIBLE);
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         HashMap<String, String> param= new HashMap<>(2);
-        param.put("word",mEtWord.getText().toString());
-        param.put("userId","102");
+        final String word = mEtWord.getText().toString();
+        param.put("word", word);
+        param.put("userId",mEtID.getText().toString());
 
 // Request a string response from the provided URL.
-        GsonRequest<WordResponse> stringRequest = new GsonRequest<>(Request.Method.POST,
-                Constant.WORDS, WordResponse.class, null, param,
-                new Response.Listener<WordResponse>() {
-                    @Override
-                    public void onResponse(WordResponse response) {
-                        // Display the first 500 characters of the response string.
-                        Log.e("response.owner", response.owner+"");
-                        Log.e("response.status", response.status+"");
-                        Log.e("response.subscribers", response.subscribers+"");
-
-                    }
-                }, new ErrorListener(new ErrorListener.ErrorHandler() {
+        StringRequestWord stringRequestWord = new StringRequestWord(Request.Method.POST,
+                Constant.WORDS, param, new Response.Listener<String>() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("error", error.toString());
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.has("owner")) {
+                        mTvResult.setVisibility(View.VISIBLE);
+                        String[] args = new String[1];
+                        args[0] = word;
+                        mTvResult.setText(getString(R.string.word_owner_message, args));
+                    } else {
+                        if(jsonObject.has("subscribers")){
+                            Intent intent = new Intent(MainActivity.this,SubscribersActivity.class);
+                            intent.putExtra(SubscribersActivity.EXTRA_SUBSCRIBERS, response);
+                            startActivity(intent);
+                        }
+                        mTvResult.setVisibility(View.VISIBLE);
+                        String[] args = new String[1];
+                        args[0] = "5";
+                        mTvResult.setText(getString(R.string.word_subscribers, args));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new ErrorListener(new ErrorListener.ErrorHandler() {
+            @Override
+            public void onErrorResponse(String message) {
+                Log.e("error", message);
+                mEtWord.setError(message);
             }
         }));
 // Add the request to the RequestQueue.
-        queue.add(stringRequest);
+        queue.add(stringRequestWord);
     }
 
     @Override
