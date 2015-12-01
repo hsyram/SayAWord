@@ -5,4 +5,10 @@
     <string name="facebook_app_id">469332839942299</string>
     <string name="word_owner_message">This word is new you are king of %s </string>
     <string name="word_subscribers">This word is said by %s people. </string>
+
+    <string name="login">Login</string>
+    <string name="logout">Log out</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
