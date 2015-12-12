@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- we can delete it because there are predefine template in appcompact lib -->
+    <declare-styleable name="font">
+        <attr name="fontName" format="enum">
+            <enum name="Light" value="0"/>
+            <enum name="Medium" value="1"/>
+            <enum name="Bold" value="2"/>
+            <enum name="NewCycleBold" value="3"/>
+        </attr>
+    </declare-styleable>
+    <!-- END -->
+</resources>
