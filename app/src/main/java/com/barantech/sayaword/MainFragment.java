@@ -57,7 +57,6 @@ public class MainFragment extends Fragment {
         mEtWord = (EditText) view.findViewById(R.id.et_word);
         mEtID = (EditText) view.findViewById(R.id.et_id);
         final View mBtnSend = view.findViewById(R.id.btn_sendword);
-        setHasOptionsMenu(true);
 
         mEtWord.addTextChangedListener(new TextWatcher() {
             @Override
@@ -136,32 +135,4 @@ public class MainFragment extends Fragment {
         // Add the request to the RequestQueue.
         queue.add(stringRequestWord);
     }
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.login:
-                // Create new fragment and transaction
-                Fragment newFragment = new LoginFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
-                transaction.replace(R.id.container, newFragment);
-                transaction.addToBackStack(null);
-
-                // Commit the transaction
-                transaction.commit();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 }

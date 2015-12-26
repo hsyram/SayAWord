@@ -6,4 +6,8 @@
     <dimen name="button_min_width">196dp</dimen>
     <dimen name="button_padding">24dp</dimen>
     <dimen name="padding">4dp</dimen>
+    <dimen name="image_size">48dp</dimen>
+    <dimen name="list_item_height">72dp</dimen>
+    <dimen name="circular_indicator_width">30dp</dimen>
+    <dimen name="circular_indicator_padding">7dp</dimen>
 </resources>
