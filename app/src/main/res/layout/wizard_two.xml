@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/wizard_main_margin">
+
+        <ImageView
+            android:id="@+id/v1"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wizard_two_one" />
+
+        <ImageView
+            android:id="@+id/v2"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/wizard_two_two" />
+    </FrameLayout>
+
+    <com.barantech.sayaword.widget.CustomTextView
+        style="@style/Base.TextAppearance.AppCompat.Display1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/wizard_main_margin"
+        android:paddingRight="@dimen/wizard_main_margin"
+        android:paddingBottom="@dimen/wizard_text_padding"
+        android:text="@string/wizard_fourth"
+        android:textColor="@android:color/white" />
+
+    <com.barantech.sayaword.widget.CustomTextView
+        style="@style/Base.TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/wizard_main_margin"
+        android:paddingRight="@dimen/wizard_main_margin"
+        android:paddingBottom="@dimen/wizard_text_padding"
+        android:text="@string/wizard_second"
+        android:textColor="@android:color/white" />
+
+    <com.barantech.sayaword.widget.CustomTextView
+        style="@style/Base.TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/wizard_main_margin"
+        android:paddingRight="@dimen/wizard_main_margin"
+        android:paddingBottom="@dimen/wizard_text_padding"
+        android:text="@string/wizard_third"
+        android:textColor="@android:color/white" />
+</LinearLayout>

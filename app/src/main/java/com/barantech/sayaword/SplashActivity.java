@@ -10,9 +10,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.ScaleAnimation;
-
-import com.barantech.sayaword.util.Log;
 
 public class SplashActivity extends AppCompatActivity {
     /**
@@ -54,7 +51,6 @@ public class SplashActivity extends AppCompatActivity {
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d("onPageScrolled position:"+position+" positionOffset:"+positionOffset);
                 View view = getIndicator(position);
                 if (view != null)
                     if (positionOffset <= 0) { // [-1,0]
@@ -126,7 +122,15 @@ public class SplashActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+            switch (position){
+                case 0:
+                    return new WizardOneFragment();
+                case 1:
+                    return new WizardTwoFragment();
+                case 2:
+                    return new WizardThreeFragment();
+            }
+            return new WizardOneFragment();
         }
 
         @Override
@@ -135,13 +139,33 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    public static class ScreenSlidePageFragment extends Fragment {
+    public static class WizardOneFragment extends Fragment {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            return (ViewGroup) inflater.inflate(
-                    R.layout.fragment_splash_one, container, false);
+            return inflater.inflate(
+                    R.layout.wizard_one, container, false);
+
+        }
+    }
+    public static class WizardTwoFragment extends Fragment {
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(
+                    R.layout.wizard_two, container, false);
+
+        }
+    }
+    public static class WizardThreeFragment extends Fragment {
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(
+                    R.layout.wizard_three, container, false);
 
         }
     }

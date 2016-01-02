@@ -44,7 +44,7 @@ public class CustomTextView extends TextView {
         Typeface typeface;
         switch (fontType){
             case 0:
-                typeface= Typeface.createFromAsset(getContext().getAssets(), "fonts/SkarpaLt.ttf");
+                typeface= Typeface.createFromAsset(getContext().getAssets(), "fonts/penna.otf");
                 break;
             case 1:
                 typeface= Typeface.createFromAsset(getContext().getAssets(), "fonts/SkarpaLt.ttf");
@@ -56,7 +56,7 @@ public class CustomTextView extends TextView {
                 typeface= Typeface.createFromAsset(getContext().getAssets(), "fonts/SkarpaLt.ttf");
                 break;
             default:
-                typeface= Typeface.createFromAsset(getContext().getAssets(), "fonts/SkarpaLt.ttf");
+                typeface= Typeface.createFromAsset(getContext().getAssets(), "fonts/penna.otf");
                 break;
         }
         setTypeface(typeface);
