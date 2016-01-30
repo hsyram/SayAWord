@@ -8,14 +8,20 @@ import android.view.View;
  * <br/>
  * Created by mary on 12/22/15.
  */
-public class SplashPageTransformer implements ViewPager.PageTransformer {
+public class WizardPageTransformer implements ViewPager.PageTransformer {
     View v1;
     View v2;
+    View tv1;
+    View tv2;
+    View tv3;
 
     public void transformPage(View view, float position) {
         int pageWidth = view.getWidth();
         v1 = view.findViewById(R.id.v1);
         v2 = view.findViewById(R.id.v2);
+        tv1 = view.findViewById(R.id.tv1);
+        tv2 = view.findViewById(R.id.tv2);
+        tv3 = view.findViewById(R.id.tv3);
 
         if (position < -1) { // [-Infinity,-1)
             // This page is way off-screen to the left.
@@ -29,6 +35,9 @@ public class SplashPageTransformer implements ViewPager.PageTransformer {
 //            view.setScaleY(1);
             v1.setTranslationX((position) * (pageWidth / 4));
             v2.setTranslationX((position) * (pageWidth / 2));
+            tv1.setTranslationX((position) * (pageWidth));
+            tv2.setTranslationX((position) * (pageWidth));
+            tv3.setTranslationX((position) * (pageWidth));
 
         } else if (position <= 1) { // (0,1]
 //            view.setAlpha(1 - position);
@@ -40,6 +49,9 @@ public class SplashPageTransformer implements ViewPager.PageTransformer {
 
             v1.setTranslationX((position) * (pageWidth / 4));
             v2.setTranslationX((position) * (pageWidth / 2));
+            tv1.setTranslationX((position) * (pageWidth));
+            tv2.setTranslationX((position) * (pageWidth));
+            tv3.setTranslationX((position) * (pageWidth));
 
         } else { // (1,+Infinity]
             // This page is way off-screen to the right.

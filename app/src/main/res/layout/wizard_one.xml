@@ -28,6 +28,7 @@
     </FrameLayout>
 
     <com.barantech.sayaword.widget.CustomTextView
+        android:id="@+id/tv1"
         style="@style/Base.TextAppearance.AppCompat.Display1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
         android:textColor="@android:color/white" />
 
     <com.barantech.sayaword.widget.CustomTextView
+        android:id="@+id/tv2"
         style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
         android:textColor="@android:color/white" />
 
     <com.barantech.sayaword.widget.CustomTextView
+        android:id="@+id/tv3"
         style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
