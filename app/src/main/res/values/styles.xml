@@ -7,11 +7,30 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:navigationBarColor">@color/colorPrimary</item>
 
         <item name="colorControlNormal">@color/colorAccent128</item>
         <item name="colorControlActivated">@color/colorAccent128</item>
         <item name="colorControlHighlight">@color/colorAccent128</item>
+    </style>
+
+    <style name="wizardTextHeadline" parent="Base.TextAppearance.AppCompat.Display1">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/wizard_text_padding</item>
+        <item name="android:paddingRight">@dimen/wizard_text_padding</item>
+        <item name="android:paddingTop">@dimen/wizard_text_headline_padding</item>
+        <item name="android:paddingBottom">@dimen/wizard_text_headline_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="wizardTextNormal" parent="Base.TextAppearance.AppCompat.Large">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/wizard_main_margin</item>
+        <item name="android:paddingRight">@dimen/wizard_main_margin</item>
+        <item name="android:paddingBottom">@dimen/wizard_text_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

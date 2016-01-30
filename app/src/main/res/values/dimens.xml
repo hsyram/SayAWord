@@ -5,11 +5,14 @@
     <dimen name="button_height">64dp</dimen>
     <dimen name="button_min_width">196dp</dimen>
     <dimen name="button_padding">24dp</dimen>
+    <dimen name="top_padding">32dp</dimen>
     <dimen name="padding">4dp</dimen>
     <dimen name="image_size">48dp</dimen>
     <dimen name="list_item_height">72dp</dimen>
-    <dimen name="circular_indicator_width">18dp</dimen>
-    <dimen name="circular_indicator_padding">4dp</dimen>
+    <dimen name="circular_indicator_width">14dp</dimen>
+    <dimen name="circular_indicator_padding">2dp</dimen>
+    <dimen name="circular_indicator_height">40dp</dimen>
     <dimen name="wizard_main_margin">40dp</dimen>
     <dimen name="wizard_text_padding">8dp</dimen>
+    <dimen name="wizard_text_headline_padding">12dp</dimen>
 </resources>

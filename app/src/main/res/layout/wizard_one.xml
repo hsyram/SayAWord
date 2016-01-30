@@ -24,39 +24,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
+
             android:src="@drawable/wizard_one_two" />
+        <ImageView
+            android:id="@+id/v3"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/wizard_one_three" />
     </FrameLayout>
 
     <com.barantech.sayaword.widget.CustomTextView
         android:id="@+id/tv1"
-        style="@style/Base.TextAppearance.AppCompat.Display1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/wizard_main_margin"
-        android:paddingRight="@dimen/wizard_main_margin"
-        android:paddingBottom="@dimen/wizard_text_padding"
-        android:text="@string/wizard_first"
-        android:textColor="@android:color/white" />
+        style="@style/wizardTextHeadline"
+        android:text="@string/wizard_one_one"/>
 
     <com.barantech.sayaword.widget.CustomTextView
         android:id="@+id/tv2"
-        style="@style/Base.TextAppearance.AppCompat.Headline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/wizard_main_margin"
-        android:paddingRight="@dimen/wizard_main_margin"
-        android:paddingBottom="@dimen/wizard_text_padding"
-        android:text="@string/wizard_second"
-        android:textColor="@android:color/white" />
+        style="@style/wizardTextNormal"
+        android:text="@string/wizard_one_two" />
 
     <com.barantech.sayaword.widget.CustomTextView
         android:id="@+id/tv3"
-        style="@style/Base.TextAppearance.AppCompat.Headline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/wizard_main_margin"
-        android:paddingRight="@dimen/wizard_main_margin"
-        android:paddingBottom="@dimen/wizard_text_padding"
-        android:text="@string/wizard_third"
-        android:textColor="@android:color/white" />
+        style="@style/wizardTextNormal"
+        android:text="@string/wizard_one_three" />
 </LinearLayout>

@@ -8,10 +8,15 @@
 
     <string name="login">Login</string>
     <string name="logout">Log out</string>
-    <string name="wizard_first">What Are You Thinking To</string>
-    <string name="wizard_second">Every moment we are thinking to a subject</string>
-    <string name="wizard_third">what is the name of latest</string>
-    <string name="wizard_fourth">Share your latest mind in Thingo</string>
+    <string name="wizard_one_one">What Are You Thinking To</string>
+    <string name="wizard_one_two">Every moment we are thinking to a subject</string>
+    <string name="wizard_one_three">what is the name of latest</string>
+    <string name="wizard_two_one">Share your latest mind in Thingo</string>
+    <string name="wizard_two_two">Publish by thingo what exactly is in your ming</string>
+    <string name="wizard_two_three">to find your peers</string>
+    <string name="wizard_three_one">Who think to the same Thingo</string>
+    <string name="wizard_three_two">Find people how just published same thingo</string>
+    <string name="wizard_three_three">and get match score</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

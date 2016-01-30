@@ -8,6 +8,7 @@
     tools:context="com.barantech.sayaword.SplashActivity">
     <ImageView
         android:id="@+id/iv_logo"
+        android:transitionName="robot"
         android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
